@@ -1,10 +1,12 @@
 /**
- * @author Morgan Conrad
- * Copyright(c) 2018
+ * @author Amazyyy team
+ * Copyright(c) 2021
  * This software is released under the MIT license  (http://opensource.org/licenses/MIT)
+ * Special thanks to original author: Morgan Conrad
  */
 
 const FCSWriteStream = require("./fcswritestream");
+const polyfill = require("./polyfill");
 
 /**
  * Constructor
@@ -321,8 +323,8 @@ FCS.prototype.prepareWriteableStream = function(callback, readableStream) {
  */
 FCS.prototype._prepareReadParameters = function(databuf) {
   let isBE;
-  if (this.text.$BYTEORD.includes("2,1")) isBE = true;
-  else if (this.text.$BYTEORD.includes("1,2")) isBE = false;
+  if (polyfill.includes(this.text.$BYTEORD)) isBE = true;
+  else if (polyfill.includes(this.text.$BYTEORD)) isBE = false;
   else throw Error("cannot handle $BYTEORD= " + this.text.$BYTEORD);
 
   let options = this.meta;
